@@ -1,0 +1,15 @@
+#build directory
+./.build
+
+#output files
+*.out
+
+#object files
+*.o
+
+#shared libraries
+*.so
+
+#static libraries
+*.a
+
