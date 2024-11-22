@@ -6,13 +6,13 @@
 /*   By: bcabocel <bcabocel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:00:57 by bcabocel          #+#    #+#             */
-/*   Updated: 2024/11/22 01:32:01 by bcabocel         ###   ########.fr       */
+/*   Updated: 2024/11/22 05:23:18 by bcabocel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-int	ft_putnbr_base_fd(int nb, char *base, int fd)
+int	ft_putnbr_base_fd(long long nb, char *base, int fd)
 {
 	size_t	base_len;
 	int		is_neg;

@@ -6,7 +6,7 @@
 /*   By: bcabocel <bcabocel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 01:34:18 by bcabocel          #+#    #+#             */
-/*   Updated: 2024/11/22 01:32:21 by bcabocel         ###   ########.fr       */
+/*   Updated: 2024/11/22 06:50:58 by bcabocel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct s_conversion_map
+typedef struct s_flag_map
 {
 	char	c;
 	int		(*f)(va_list);
-}	t_conversion_map;
+}	t_flag_map;
 
 int		ft_printf(const char *format, ...);
 size_t	ft_strlen(const char *s);
@@ -30,10 +30,11 @@ size_t	ft_strlen(const char *s);
 int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd);
 int		ft_putendl_fd(char *s, int fd);
-int		ft_putnbr_base_fd(int nb, char *base, int fd);
-int		ft_putull_base_fd(size_t nb, char *base, size_t base_len, int fd);
+int		ft_putnbr_base_fd(long long nb, char *base, int fd);
+int		ft_putull_base_fd(unsigned long long nb,
+			char *base, size_t base_len, int fd);
 
-// put (callbacks)
+// flag callbacks
 int		ft_print_char(va_list ap);
 int		ft_print_string(va_list ap);
 int		ft_print_pointer(va_list ap);
