@@ -1,43 +1,50 @@
-NAME		= libftprintf.a
+CC          = cc
+FLAGS       = -Wall -Wextra -Werror
 
-CC 			= cc
-FLAGS 		= -Wall -Wextra -Werror -I . -I ./libft
+NAME        = libftprintf.a
 
-HEADERS 	= ./ft_printf.h \
-	./libft/libft.h \
+BUILD_DIR   = .build
 
-B_DIR 		= ./.build
+INCLUDES_DIR = ./includes
+INCLUDES_FILES = ft_printf.h \
+INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(INCLUDES_FILES))
 
-SRCS_DIR 	= ./srcs
-SRCS		= ./libft/libft.a \
-	$(SRCS_DIR)/ft_printf.c \
-	$(SRCS_DIR)/utils/ft_print_char.c \
-	$(SRCS_DIR)/utils/ft_print_hex_upper.c \
-	$(SRCS_DIR)/utils/ft_print_hex.c \
-	$(SRCS_DIR)/utils/ft_print_int.c \
-	$(SRCS_DIR)/utils/ft_print_percent.c \
-	$(SRCS_DIR)/utils/ft_print_pointer.c \
-	$(SRCS_DIR)/utils/ft_print_string.c \
-	$(SRCS_DIR)/utils/ft_print_unsigned_int.c \
+SRCS_DIR    = srcs
+SRCS_FILES  = ft_printf.c \
+			ft_strlen.c \
+			put/ft_putchar_fd.c \
+			put/ft_putendl_fd.c \
+			put/ft_putnbr_base_fd.c \
+			put/ft_putstr_fd.c \
+			put/ft_putull_base_fd.c \
+			callbacks/ft_print_char.c \
+			callbacks/ft_print_hex_upper.c \
+			callbacks/ft_print_hex.c \
+			callbacks/ft_print_int.c \
+			callbacks/ft_print_percent.c \
+			callbacks/ft_print_pointer.c \
+			callbacks/ft_print_string.c \
+			callbacks/ft_print_unsigned_int.c \
 
-OBJS 		= $(SRCS:%.c=$(B_DIR)/%.o)
+SRCS        = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
+OBJS        = $(patsubst $(SRCS_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
 
-all: $(NAME)
-	@mkdir -p $(@D)
 
-$(B_DIR)/%.o: %.c $(HEADERS) Makefile
+$(BUILD_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES) Makefile
 	@mkdir -p $(@D)
-	$(CC) $(FLAGS) -c  $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@ -I $(INCLUDES_DIR)
+
+all: $(NAME)
 
 clean:
-	rm -rf $(B_DIR)
+	rm -rf $(BUILD_DIR)
 
 fclean: clean
 	rm -f $(NAME)
 
-re:	fclean all
+re: fclean all
 
 .PHONY: all clean fclean re

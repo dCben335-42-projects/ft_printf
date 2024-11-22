@@ -6,11 +6,11 @@
 /*   By: bcabocel <bcabocel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 01:20:49 by dcben335          #+#    #+#             */
-/*   Updated: 2024/11/19 05:59:20 by bcabocel         ###   ########.fr       */
+/*   Updated: 2024/11/22 01:36:51 by bcabocel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <ft_printf.h>
 
 static int	handle_map_print(
 	const char *format,
@@ -34,6 +34,7 @@ static int	ft_vprintf(
 )
 {
 	int	ret;
+	int current_loop_ret;
 
 	ret = 0;
 	while (*format)
@@ -41,13 +42,13 @@ static int	ft_vprintf(
 		if (*format == '%')
 		{
 			if (*(++format)) 
-				ret += handle_map_print(format, ap, map);
+				current_loop_ret = handle_map_print(format, ap, map);
 		}
 		else
-		{
-			ft_putchar_fd(*format, 1);
-			ret++;
-		}
+			current_loop_ret = ft_putchar_fd(*format, 1);
+		if (current_loop_ret == -1)
+			return (-1);
+		ret += current_loop_ret;
 		format++;
 	}
 	return (ret);
@@ -88,13 +89,4 @@ int	ft_printf(const char *format, ...)
 	ret = ft_vprintf(format, ap, ft_get_conversion_maps());
 	va_end(ap);
 	return (ret);
-}
-
-int main(void)
-{
-	printf("\nMine%d\n", ft_printf("Hello, %s!\n %c %i %%\n", "world", 'a', 42));
-	printf("\nOriginal%d\n", printf("Hello, %s!\n %c %i %%\n", "world", 'a', 42));
-
-	
-	return (0);
 }

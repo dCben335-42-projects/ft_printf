@@ -1,8 +1,8 @@
 #build directory
-./.build
+*/.build
 
 #output files
-*.out
+**/*.out
 
 #object files
 *.o
